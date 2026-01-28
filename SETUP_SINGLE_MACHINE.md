@@ -32,7 +32,7 @@ cp .env.example .env
 sed -i "s|^SESSION_SECRET=.*$|SESSION_SECRET=$(openssl rand -hex 32)|" .env
 ```
 
-If you skip this, the app will auto-generate a random `SESSION_SECRET` on startup (sessions reset on restart).
+If you skip this, the app will auto-generate a strong `SESSION_SECRET` and persist it under `./data/session_secret.txt`.
 
 ```bash
 docker compose down
@@ -51,6 +51,11 @@ On first run (when no admin exists), visiting `http://localhost:3000` will redir
 - `/setup`
 
 Create the admin user there, then you’ll be sent to the admin console.
+The admin console is split into:
+
+- Pricing rules: `/admin`
+- Users: `/admin/users`
+- Audit logs: `/admin/audit`
 
 #### Setup token (first run)
 

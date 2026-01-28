@@ -11,7 +11,7 @@ This project is designed for **LAN/self-hosted** deployments. It ships with seve
 
 - **Keep secrets local**:
   - Store secrets in a local `.env` file or environment variables.
-  - Treat `data/` as sensitive: it contains the SQLite DB, sessions, and generated secrets.
+  - Treat `data/` as sensitive: it contains the SQLite DB (users, sessions, audit logs, pricing memory) and generated secrets.
 
 - **Session signing secret (`SESSION_SECRET`)**
   - Required for stable sessions.
@@ -68,6 +68,9 @@ The UI avoids inline scripts/styles and avoids `document.write()` in order to ke
 - **Audit logs**:
   - Login/logout, pricing requests, admin actions are written to SQLite.
   - Retention caps are available via `AUDIT_LOG_MAX_ROWS` and `AUDIT_LOG_MAX_AGE_DAYS`.
+ - **Pricing memory**:
+   - Recent pricing results are cached in SQLite to stabilize repeated scans.
+   - Retention is configurable in the admin console (default 7 days).
 
 ## Reverse proxy / HTTPS guidance
 

@@ -2,8 +2,6 @@
 
 Simple web app that uses your **local Ollama vision model** to estimate used/new resale prices from a webcam photo.
 
-![Example UI screenshot](lora.png)
-
 ## What it outputs
 
 Each photo starts a **fresh** Ollama chat and returns prices in tiers:
@@ -20,13 +18,14 @@ New: $$
 - Best = used price
 - New = sold-as-new price
 
-> Note: these tier percentages are now configurable in the admin console (`/admin`).
+> Note: these tier percentages are configurable in the admin console (`/admin` → Pricing rules).
 
 ## UI features
 
 - Webcam preview + **Last capture** thumbnail
 - Optional hint inputs: **Brand / Model / SKU**
 - Press **Spacebar** to take a picture (won’t trigger while typing in inputs)
+- Double-click the live camera view to take a picture
 - Output card with **confidence** badge
 - Admin console supports **CSV user import**
 
@@ -43,17 +42,21 @@ New: $$
   - Webcam capture + last capture preview
   - Optional hints: Brand / Model / SKU
   - Spacebar capture shortcut (won’t trigger while typing)
+  - Double-click capture on the live camera view
   - Confidence badge and printable price labels
+  - Pricing memory (cache) to stabilize repeated scans
 - **Auth + roles**
   - First-run **admin setup** flow (`/setup`)
   - Login (`/login`) with **admin/user** roles
-  - Admin UI (`/admin`) and user UI (`/app`)
+  - Admin UI: Pricing rules (`/admin`), Users (`/admin/users`), Audit logs (`/admin/audit`)
+  - User UI (`/app`)
   - Passwords are **bcrypt-hashed**; sessions use secure cookie defaults
 - **Admin console**
   - Create/update/disable users
   - Bulk **CSV user import**
   - Configure pricing rules (price cap + extra prompt rules)
   - Configure tier percentages for Rough/Good/Best/New
+  - Configure pricing memory retention (default **7 days**)
 - **Audit logging**
   - Admin audit view and user “my activity” view
   - Retention controls via env vars
@@ -94,6 +97,14 @@ docker compose up
 
 Open `http://localhost:3000`.
 
+### (Recommended) Create a local `.env` for stable sessions
+
+```bash
+cd "/path/to/Open-LLM-Pricer"
+cp .env.example .env
+sed -i "s|^SESSION_SECRET=.*$|SESSION_SECRET=$(openssl rand -hex 32)|" .env
+```
+
 ### First-run setup token
 
 On first boot (when no admin exists), the server prints a **setup token** to the `docker compose up` logs:
@@ -125,7 +136,7 @@ If Ollama runs elsewhere, change `OLLAMA_BASE_URL` accordingly (example: `http:/
 Env vars:
 
 - `PORT` (default `3000`)
-- `SESSION_SECRET` (recommended; used to sign login sessions. If unset, a random secret is generated on startup and sessions reset on restart.)
+- `SESSION_SECRET` (recommended; used to sign login sessions. If unset, a strong secret is generated and persisted under `./data/session_secret.txt`.)
 - `LISTEN_HOST` (default `0.0.0.0`; firewall to trusted subnets)
 - `TRUST_PROXY` (set `true` behind a reverse proxy)
 - `COOKIE_SECURE` (set `true` when serving via HTTPS)
@@ -140,4 +151,8 @@ This project is built with:
 - **[Node.js](https://nodejs.org/)** (runtime)
 - **[Express](https://expressjs.com/)** (web server)
 - **Docker / Docker Compose** (containerized deployment)
+
+## Third-party notices
+
+See `THIRD_PARTY_NOTICES.md`.
 
