@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin · Open LLM Pricer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bgGrid" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brandText">
+            <div class="brandTitle">Open LLM Pricer</div>
+          </div>
+        </div>
+        <div class="badges">
+          <a class="ghostBtn" href="/admin" aria-current="page">Pricing rules</a>
+          <a class="ghostBtn" href="/admin/users">Users</a>
+          <a class="ghostBtn" href="/admin/audit">Audit logs</a>
+          <button id="logout" class="ghostBtn" type="button">Logout</button>
+        </div>
+      </header>
+
+      <section class="panel uPad18">
+        <h2 class="uM0 uMb12">Pricing rules</h2>
+
+        <div class="uGrid uGap14">
+          <div class="outputCard uM0">
+            <div class="outputTitle">Pricing rules</div>
+
+            <div class="controlsRow cols1fr2fr">
+              <label class="field">
+                <span>Max price without hints/identifiers (USD)</span>
+                <input id="maxPrice" type="number" min="0" step="1" />
+              </label>
+              <label class="field">
+                <span>Price memory retention (days)</span>
+                <input id="priceMemoryRetentionDays" type="number" min="1" max="365" step="1" />
+              </label>
+              <label class="field">
+                <span>Extra prompt rules (appended to the prompt)</span>
+                <textarea
+                  id="extraRules"
+                  class="textareaPlain"
+                ></textarea>
+              </label>
+            </div>
+
+            <div class="controlsRow cols2 alignEnd uMt10">
+              <label class="field">
+                <span>Rough % of used</span>
+                <input id="tierRoughPct" type="number" min="0" max="200" step="1" />
+              </label>
+              <label class="field">
+                <span>Good % of used</span>
+                <input id="tierGoodPct" type="number" min="0" max="200" step="1" />
+              </label>
+              <label class="field">
+                <span>Best % of used</span>
+                <input id="tierBestPct" type="number" min="0" max="200" step="1" />
+              </label>
+              <label class="field">
+                <span>New % of new</span>
+                <input id="tierNewPct" type="number" min="0" max="200" step="1" />
+              </label>
+            </div>
+
+            <div class="uFlex uGap10 uAlignCenter uJustifyEnd uMt10">
+              <button id="saveRules" class="primary btnCompact" type="button">Save rules</button>
+            </div>
+            <div id="rulesMsg" class="sourceMeta"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/admin-common.js"></script>
+    <script src="/admin-rules.js"></script>
+  </body>
+</html>
+

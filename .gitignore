@@ -1,0 +1,52 @@
+# Node / tooling
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Local data (SQLite DB, WAL/SHM, exports, etc.)
+# Keep `data/.gitkeep` so the folder exists in git.
+data/*
+!data/.gitkeep
+
+# Databases (ignore anywhere, just in case)
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.wal
+*.shm
+*.duckdb
+
+# Logs
+*.log
+logs/
+
+# Data exports / spreadsheets (commonly contain sensitive info)
+*.csv
+*.tsv
+*.xlsx
+*.xls
+
+# Common private key / cert artifacts (should never be committed)
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Cursor / local tooling
+.cursor/
+

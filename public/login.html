@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login · Open LLM Pricer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bgGrid" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brandText">
+            <div class="brandTitle">Open LLM Pricer</div>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="chip">Login</span>
+        </div>
+      </header>
+
+      <section class="panel uPad18">
+        <div class="uFlex uGap10 uAlignCenter uJustifyBetween uWrap">
+          <h2 class="uM0">Sign in</h2>
+          <div class="uInlineFlex uGap8 uAlignCenter">
+            <span class="uTextMuted75 uFw750 uFs12">User</span>
+            <label class="toggle uM0">
+              <input id="loginAsAdmin" type="checkbox" />
+              <span class="toggleTrack" aria-hidden="true"></span>
+              <span class="toggleLabel">Admin</span>
+            </label>
+          </div>
+        </div>
+
+        <div
+          id="secretWarn"
+          class="panel warnPanel hidden uMt14"
+          role="status"
+          aria-live="polite"
+        >
+          <div class="warnTitle">Heads up: session secret was auto-generated</div>
+          <div id="secretWarnText" class="warnText">
+            This server generated a session secret automatically.
+          </div>
+        </div>
+
+        <div class="controlsRow cols1 uMaxW520 uMt14">
+          <label class="field">
+            <span>Username</span>
+            <input id="username" autocomplete="username" />
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input id="password" type="password" autocomplete="current-password" />
+          </label>
+        </div>
+
+        <div class="uMt14 uFlex uGap10 uAlignCenter">
+          <button id="submit" class="primary" type="button">Login</button>
+          <span id="msg" class="uTextMuted75"></span>
+        </div>
+      </section>
+    </main>
+
+    <script src="/login.js"></script>
+  </body>
+</html>
+

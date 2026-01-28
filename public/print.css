@@ -1,0 +1,101 @@
+:root {
+  color-scheme: light;
+}
+
+@page {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: #fff;
+  color: #000;
+}
+
+.hidden {
+  display: none;
+}
+
+.printSheet {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+}
+
+.printLabel {
+  width: 320px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 12px 12px 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.printRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.printObject {
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1.15;
+  word-break: break-word;
+}
+
+.printTier {
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.printPrice {
+  font-weight: 900;
+  font-size: 40px;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+
+.printMeta {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.printK {
+  font-weight: 800;
+}
+
+.printV {
+  font-weight: 600;
+}
+
+.printFooter {
+  margin-top: 2px;
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.printNote {
+  margin: 10px 0 0 0;
+  font-size: 12px;
+}
+
+@media print {
+  .printSheet {
+    padding: 0;
+  }
+}
+

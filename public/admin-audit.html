@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audit logs · Admin · Open LLM Pricer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bgGrid" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brandText">
+            <div class="brandTitle">Open LLM Pricer</div>
+          </div>
+        </div>
+        <div class="badges">
+          <a class="ghostBtn" href="/admin">Pricing rules</a>
+          <a class="ghostBtn" href="/admin/users">Users</a>
+          <a class="ghostBtn" href="/admin/audit" aria-current="page">Audit logs</a>
+          <button id="logout" class="ghostBtn" type="button">Logout</button>
+        </div>
+      </header>
+
+      <section class="panel uPad18">
+        <h2 class="uM0 uMb12">Audit logs</h2>
+
+        <div class="outputCard uM0">
+          <div class="outputTitle">Search</div>
+          <div class="sourceMeta">Search recent activity (login, pricing requests, admin changes).</div>
+
+          <div class="controlsRow colsAudit alignEnd uMt10">
+            <label class="field">
+              <span>Actor (username or id)</span>
+              <input id="auditActor" placeholder="e.g. alice or 12" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Action contains</span>
+              <input id="auditAction" placeholder="e.g. auth.login" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Limit</span>
+              <select id="auditLimit" class="selectPlain">
+                <option value="25">25</option>
+                <option value="50" selected>50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="uFlex uGap10 uAlignCenter uJustifyEnd uMt10">
+            <button id="auditRefresh" class="ghostBtn" type="button">Refresh</button>
+            <button id="auditMore" class="primary btnCompact" type="button">Load more</button>
+          </div>
+          <div id="auditMsg" class="sourceMeta"></div>
+          <div id="auditTable" class="sources uMt10"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/admin-common.js"></script>
+    <script src="/admin-audit.js"></script>
+  </body>
+</html>
+

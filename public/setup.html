@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Setup · Open LLM Pricer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bgGrid" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brandText">
+            <div class="brandTitle">Open LLM Pricer</div>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="chip chipAccent">Admin setup</span>
+        </div>
+      </header>
+
+      <section class="panel uPad18">
+        <h2 class="uM0 uMb8">Create admin account</h2>
+        <p class="uM0 uMb14 uTextMuted75">
+          First time setup: create the admin user for this instance.
+        </p>
+
+        <div
+          id="secretWarn"
+          class="panel warnPanel hidden uMb14"
+          role="status"
+          aria-live="polite"
+        >
+          <div class="warnTitle">Heads up: session secret was auto-generated</div>
+          <div id="secretWarnText" class="warnText">
+            <code>SESSION_SECRET</code> was missing/weak/default, so the server generated one automatically.
+          </div>
+        </div>
+
+        <div class="controlsRow cols1 uMaxW520">
+          <label id="setupTokenRow" class="field hidden">
+            <span>Setup token</span>
+            <input id="setupToken" autocomplete="off" placeholder="Paste SETUP_TOKEN from docker compose logs" />
+          </label>
+          <label class="field">
+            <span>Username</span>
+            <input id="username" autocomplete="username" />
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input id="password" type="password" autocomplete="new-password" />
+          </label>
+        </div>
+
+        <div class="uMt14 uFlex uGap10 uAlignCenter">
+          <button id="submit" class="primary" type="button">Create admin</button>
+          <span id="msg" class="uTextMuted75"></span>
+        </div>
+      </section>
+    </main>
+
+    <script src="/setup.js"></script>
+  </body>
+</html>
+

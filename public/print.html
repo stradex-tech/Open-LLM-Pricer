@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Print label · Open LLM Pricer</title>
+    <link rel="stylesheet" href="/print.css" />
+  </head>
+  <body>
+    <main class="printSheet">
+      <section class="printLabel" role="document" aria-label="Price label">
+        <header class="printRow">
+          <div class="printObject" id="obj">Item</div>
+          <div class="printTier" id="tier">Price</div>
+        </header>
+
+        <div class="printPrice" id="price">N/A</div>
+
+        <div class="printMeta" id="meta"></div>
+
+        <footer class="printFooter">
+          <div>Open LLM Pricer</div>
+          <div id="ts"></div>
+        </footer>
+      </section>
+
+      <p class="printNote" id="note"></p>
+    </main>
+
+    <script src="/print.js"></script>
+  </body>
+</html>
+

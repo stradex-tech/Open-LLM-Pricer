@@ -1,0 +1,986 @@
+:root {
+  --bg: #070a12;
+  --text: #eaf0ff;
+  --muted: rgba(234, 240, 255, 0.72);
+
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel2: rgba(255, 255, 255, 0.085);
+  --border: rgba(255, 255, 255, 0.14);
+  --border2: rgba(255, 255, 255, 0.09);
+
+  --accent: #7c5cff;
+  --accent2: #3ee7ff;
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+  --shadow2: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background: radial-gradient(1200px 800px at 20% 5%, rgba(124, 92, 255, 0.35), transparent 60%),
+    radial-gradient(900px 700px at 70% 25%, rgba(62, 231, 255, 0.18), transparent 55%),
+    radial-gradient(1100px 900px at 70% 95%, rgba(124, 92, 255, 0.16), transparent 55%), var(--bg);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+}
+
+.bgGrid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(900px 650px at 35% 15%, rgba(0, 0, 0, 0.55), transparent 70%);
+  opacity: 0.25;
+}
+
+.shell {
+  width: min(1240px, calc(100% - 32px));
+  margin: 18px auto 22px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border2);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.045));
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow2);
+}
+
+.topLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toggleTrack {
+  width: 34px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  position: relative;
+  flex: 0 0 auto;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.toggleTrack::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  background: rgba(234, 240, 255, 0.9);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.toggleLabel {
+  font-size: 12px;
+  font-weight: 750;
+  color: rgba(234, 240, 255, 0.9);
+  white-space: nowrap;
+}
+
+.toggle input:checked + .toggleTrack {
+  background: linear-gradient(180deg, rgba(62, 231, 255, 0.28), rgba(62, 231, 255, 0.12));
+  border-color: rgba(62, 231, 255, 0.42);
+}
+
+.toggle input:checked + .toggleTrack::after {
+  transform: translateX(16px);
+  background: rgba(234, 240, 255, 0.95);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.brandText {
+  min-width: 0;
+}
+
+.brandTitle {
+  font-weight: 760;
+  letter-spacing: 0.2px;
+}
+
+.badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: rgba(234, 240, 255, 0.9);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.chipAccent {
+  background: linear-gradient(180deg, rgba(124, 92, 255, 0.35), rgba(124, 92, 255, 0.16));
+  border-color: rgba(124, 92, 255, 0.45);
+}
+
+.chipLive {
+  background: linear-gradient(180deg, rgba(62, 231, 255, 0.28), rgba(62, 231, 255, 0.12));
+  border-color: rgba(62, 231, 255, 0.45);
+}
+
+.app {
+  width: 100%;
+  height: min(720px, calc(100vh - 160px));
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 14px;
+}
+
+.panel {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.045));
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.left {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  display: grid;
+}
+
+.right {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.bottom {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  padding: 14px 14px 16px;
+  background: var(--panel2);
+}
+
+.controls {
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+
+.controlsTitle {
+  font-size: 12px;
+  font-weight: 750;
+  color: rgba(234, 240, 255, 0.85);
+  letter-spacing: 0.2px;
+}
+
+.controlsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.field > span {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(234, 240, 255, 0.75);
+}
+
+.labelRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.infoDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 900;
+  color: rgba(234, 240, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: help;
+}
+
+.infoDot:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.field input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.field input::placeholder {
+  color: rgba(234, 240, 255, 0.45);
+}
+
+.controlsActions {
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+
+.videoWrap {
+  display: grid;
+  place-items: center;
+  padding: 14px;
+}
+
+.videoFrame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
+}
+
+.videoHud {
+  position: absolute;
+  inset: 12px 12px auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.snapOverlay {
+  position: absolute;
+  left: calc(12px + env(safe-area-inset-left));
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  pointer-events: auto;
+}
+
+.snapBtn {
+  min-width: 0;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+}
+
+.capturePreview {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  /* ~31.25% of the camera panel, with sensible bounds */
+  width: clamp(200px, 31.25%, 400px);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
+
+.captureLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: rgba(234, 240, 255, 0.9);
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+}
+
+.capturePreview img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.capturePreview.hidden {
+  display: none;
+}
+
+.hudHint {
+  font-size: 12px;
+  color: rgba(234, 240, 255, 0.9);
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.header {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.headerActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ghostBtn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(234, 240, 255, 0.9);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.ghostBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ghostBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.title {
+  font-weight: 750;
+  letter-spacing: 0.2px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.statusPill {
+  font-size: 12px;
+  color: rgba(234, 240, 255, 0.9);
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  white-space: nowrap;
+}
+
+.statusPill[data-state="ready"] {
+  background: rgba(255, 255, 255, 0.06);
+}
+.statusPill[data-state="loading"] {
+  background: linear-gradient(180deg, rgba(62, 231, 255, 0.22), rgba(62, 231, 255, 0.1));
+  border-color: rgba(62, 231, 255, 0.4);
+}
+.statusPill[data-state="done"] {
+  background: linear-gradient(180deg, rgba(124, 92, 255, 0.26), rgba(124, 92, 255, 0.12));
+  border-color: rgba(124, 92, 255, 0.45);
+}
+.statusPill[data-state="error"] {
+  background: linear-gradient(180deg, rgba(255, 70, 112, 0.22), rgba(255, 70, 112, 0.1));
+  border-color: rgba(255, 70, 112, 0.45);
+}
+
+.outputWrap {
+  width: 100%;
+  height: 100%;
+  padding: 14px;
+  overflow: auto;
+}
+
+.outputEmpty {
+  height: 100%;
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  text-align: center;
+  color: rgba(234, 240, 255, 0.9);
+  font-weight: 700;
+}
+
+.outputHint {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(234, 240, 255, 0.6);
+}
+
+.outputCard {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: radial-gradient(140% 180% at 20% 0%, rgba(62, 231, 255, 0.12), transparent 45%),
+    radial-gradient(140% 180% at 90% 85%, rgba(124, 92, 255, 0.16), transparent 50%),
+    rgba(0, 0, 0, 0.18);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.outputTitle {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.25px;
+  color: rgba(234, 240, 255, 0.7);
+  text-transform: uppercase;
+}
+
+.outputObject {
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 820;
+  letter-spacing: 0.15px;
+  color: rgba(234, 240, 255, 0.98);
+}
+
+.objectRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.confBadge {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.2px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(234, 240, 255, 0.92);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.confHigh {
+  background: linear-gradient(180deg, rgba(55, 255, 170, 0.18), rgba(55, 255, 170, 0.08));
+  border-color: rgba(55, 255, 170, 0.42);
+}
+
+.confMedium {
+  background: linear-gradient(180deg, rgba(255, 205, 55, 0.18), rgba(255, 205, 55, 0.08));
+  border-color: rgba(255, 205, 55, 0.45);
+}
+
+.confLow {
+  background: linear-gradient(180deg, rgba(255, 70, 112, 0.18), rgba(255, 70, 112, 0.08));
+  border-color: rgba(255, 70, 112, 0.45);
+}
+
+.priceGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.priceCell {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 10px 12px;
+}
+
+.priceCellPrintable {
+  cursor: pointer;
+  user-select: none;
+  transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+
+.priceCellPrintable:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(62, 231, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.priceCellPrintable:active {
+  transform: translateY(0px);
+}
+
+.priceCellPrintable:focus-visible {
+  outline: 2px solid rgba(62, 231, 255, 0.55);
+  outline-offset: 2px;
+}
+
+.priceLabel {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: rgba(234, 240, 255, 0.65);
+  text-transform: uppercase;
+}
+
+.priceValue {
+  margin-top: 4px;
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: 0.2px;
+  color: rgba(234, 240, 255, 0.98);
+}
+
+.suggestions {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.16);
+  padding: 10px 12px;
+}
+
+.suggestionsTitle {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: rgba(234, 240, 255, 0.7);
+  text-transform: uppercase;
+}
+
+.suggestionsText {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 650;
+  color: rgba(234, 240, 255, 0.88);
+  white-space: pre-wrap;
+}
+
+.sources {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.14);
+  padding: 10px 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.sourcesText {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sourceLink,
+.sourceText {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(234, 240, 255, 0.92);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  max-width: 100%;
+}
+
+.sourceLink:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sourceMeta {
+  font-size: 11px;
+  color: rgba(234, 240, 255, 0.55);
+  font-weight: 650;
+}
+
+.outputError {
+  border-color: rgba(255, 70, 112, 0.35);
+  background: radial-gradient(140% 180% at 20% 0%, rgba(255, 70, 112, 0.16), transparent 45%),
+    rgba(0, 0, 0, 0.18);
+}
+
+.outputWrap::-webkit-scrollbar {
+  width: 10px;
+}
+.outputWrap::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+.outputWrap::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.primary {
+  appearance: none;
+  border: 1px solid rgba(124, 92, 255, 0.55);
+  background: radial-gradient(120% 140% at 20% 10%, rgba(62, 231, 255, 0.35), transparent 45%),
+    radial-gradient(120% 140% at 80% 90%, rgba(124, 92, 255, 0.45), transparent 50%),
+    linear-gradient(180deg, rgba(124, 92, 255, 0.85), rgba(124, 92, 255, 0.55));
+  color: white;
+  font-weight: 760;
+  padding: 12px 18px;
+  border-radius: 16px;
+  cursor: pointer;
+  min-width: 220px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 18px 45px rgba(124, 92, 255, 0.24);
+  transition: transform 120ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: saturate(1.05);
+  box-shadow: 0 22px 60px rgba(124, 92, 255, 0.28);
+}
+
+.primary:active:not(:disabled) {
+  transform: translateY(0px) scale(0.99);
+}
+
+.primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ---------------------------- */
+/* Utilities (for strict CSP)   */
+/* ---------------------------- */
+.uPad18 {
+  padding: 18px;
+}
+.uM0 {
+  margin: 0;
+}
+.uMb4 {
+  margin-bottom: 4px;
+}
+.uMb8 {
+  margin-bottom: 8px;
+}
+.uMb12 {
+  margin-bottom: 12px;
+}
+.uMb14 {
+  margin-bottom: 14px;
+}
+.uMt8 {
+  margin-top: 8px;
+}
+.uMt10 {
+  margin-top: 10px;
+}
+.uMt14 {
+  margin-top: 14px;
+}
+.uGrid {
+  display: grid;
+}
+.uFlex {
+  display: flex;
+}
+.uInlineFlex {
+  display: inline-flex;
+}
+.uWrap {
+  flex-wrap: wrap;
+}
+.uGap6 {
+  gap: 6px;
+}
+.uGap8 {
+  gap: 8px;
+}
+.uGap10 {
+  gap: 10px;
+}
+.uGap14 {
+  gap: 14px;
+}
+.uAlignCenter {
+  align-items: center;
+}
+.uAlignEnd {
+  align-items: end;
+}
+.uAlignBaseline {
+  align-items: baseline;
+}
+.uJustifyBetween {
+  justify-content: space-between;
+}
+.uJustifyEnd {
+  justify-content: flex-end;
+}
+.uMaxW520 {
+  max-width: 520px;
+}
+.uTextMuted75 {
+  color: rgba(234, 240, 255, 0.75);
+}
+.uTextMuted80 {
+  color: rgba(234, 240, 255, 0.8);
+}
+.uTextBright95 {
+  color: rgba(234, 240, 255, 0.95);
+}
+.uFw750 {
+  font-weight: 750;
+}
+.uFw800 {
+  font-weight: 800;
+}
+.uFs12 {
+  font-size: 12px;
+}
+.uLh135 {
+  line-height: 1.35;
+}
+.uMinW180 {
+  min-width: 180px;
+}
+.uFlex1 {
+  flex: 1 1 auto;
+}
+
+/* Layout variants */
+.priceGrid.oneCol {
+  grid-template-columns: 1fr;
+}
+.controlsRow.cols1 {
+  grid-template-columns: 1fr;
+}
+.controlsRow.cols2 {
+  grid-template-columns: 1fr 1fr;
+}
+.controlsRow.cols1fr2fr {
+  grid-template-columns: 1fr 2fr;
+}
+.controlsRow.colsAudit {
+  grid-template-columns: 1fr 1fr 120px;
+}
+.controlsRow.alignEnd {
+  align-items: end;
+}
+
+/* Form controls */
+.selectPlain {
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  outline: none;
+}
+.textareaPlain {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
+.btnCompact {
+  min-width: 0 !important;
+}
+
+/* Alerts */
+.warnPanel {
+  padding: 12px;
+  border: 1px solid rgba(255, 176, 0, 0.35);
+  background: rgba(255, 176, 0, 0.08);
+}
+.warnTitle {
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.warnText {
+  color: rgba(234, 240, 255, 0.8);
+  line-height: 1.35;
+}
+
+/* Admin inline-control look (used in JS-rendered rows) */
+.adminControl {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  outline: none;
+}
+.adminSelect {
+  padding: 6px 8px;
+}
+.adminInput {
+  padding: 8px 10px;
+}
+
+@media (max-width: 900px) {
+  .shell {
+    margin: 14px auto 18px;
+  }
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .topLeft {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .badges {
+    justify-content: flex-start;
+  }
+  .app {
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 12px;
+  }
+  .left,
+  .right,
+  .bottom {
+    grid-column: 1 / 2;
+  }
+  .left {
+    grid-row: 1 / 2;
+  }
+  .right {
+    grid-row: 2 / 3;
+    min-height: 320px;
+  }
+  .bottom {
+    grid-row: 3 / 4;
+  }
+
+  .controlsRow {
+    grid-template-columns: 1fr;
+  }
+  .snapBtn {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .videoWrap {
+    padding: 12px;
+  }
+  .videoFrame {
+    min-height: min(52vh, 420px);
+  }
+  .outputWrap {
+    min-height: 260px;
+  }
+
+  .capturePreview {
+    width: clamp(188px, 31.25%, 350px);
+  }
+  .capturePreview img {
+    aspect-ratio: 4 / 3;
+    height: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .shell {
+    width: min(1240px, calc(100% - 20px));
+    margin: 12px auto 16px;
+  }
+  .topbar {
+    padding: 10px 12px;
+    border-radius: 16px;
+  }
+  .panel {
+    border-radius: 16px;
+  }
+  .hudHint {
+    display: none;
+  }
+  .videoFrame {
+    /* More room so the snap button + preview don't get clipped on small screens */
+    min-height: min(60vh, 520px);
+  }
+  .capturePreview {
+    /* Move preview to top-right on phones so it won't collide with the snap button */
+    width: clamp(140px, 42%, 240px);
+    right: 10px;
+    top: 10px;
+    bottom: auto;
+  }
+  .capturePreview img {
+    aspect-ratio: 4 / 3;
+    height: auto;
+  }
+  .field {
+    padding: 10px 11px;
+  }
+}
+

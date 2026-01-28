@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open LLM Pricer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bgGrid" aria-hidden="true"></div>
+
+    <main class="shell">
+      <header class="topbar">
+        <div class="topLeft">
+          <div class="brand">
+            <div class="brandText">
+              <div class="brandTitle">Open LLM Pricer</div>
+            </div>
+          </div>
+        </div>
+        <div class="badges">
+          <button id="logout" class="ghostBtn" type="button">Logout</button>
+          <span class="chip chipAccent">Local Ollama</span>
+        </div>
+      </header>
+
+      <div class="app">
+        <section class="panel left">
+          <div class="videoWrap">
+            <div class="videoFrame">
+              <video id="video" autoplay playsinline muted></video>
+              <div class="videoHud" aria-hidden="true">
+                <span class="chip chipLive">Live</span>
+                <span class="hudHint">Fill the frame, show labels/model numbers</span>
+              </div>
+              <div class="capturePreview hidden" id="capturePreview">
+                <div class="captureLabel">Last capture</div>
+                <img id="previewImg" alt="Last captured photo preview" />
+              </div>
+              <div class="snapOverlay">
+                <button id="snap" class="primary snapBtn" type="button">Take picture</button>
+              </div>
+            </div>
+            <canvas id="canvas" class="hidden"></canvas>
+          </div>
+        </section>
+
+        <section class="panel right">
+          <div class="header">
+            <div class="title">Output</div>
+            <div class="headerActions">
+              <button id="bypassMemoryBtn" class="ghostBtn" type="button" title="Force a fresh model call (skip price memory) for the next scan">
+                Bypass memory
+              </button>
+              <button id="clearBtn" class="ghostBtn" type="button">Clear</button>
+              <div class="statusPill" id="status" data-state="ready">Ready</div>
+            </div>
+          </div>
+          <div id="output" class="outputWrap">
+            <div class="outputEmpty">
+              Take a picture to get a price.
+              <span class="outputHint">Tip: Add Brand/Model/SKU hints if the item is hard to identify.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel bottom">
+          <div class="controls">
+            <div class="controlsTitle">Optional hints</div>
+            <div class="controlsRow">
+              <label class="field">
+                <span class="labelRow"
+                  >Brand
+                  <span
+                    class="infoDot"
+                    title="Optional. You can add extra identifying info like product line, color, size, capacity, or condition here."
+                    >i</span
+                  ></span
+                >
+                <input id="brand" placeholder="Optional" autocomplete="off" />
+              </label>
+              <label class="field">
+                <span class="labelRow"
+                  >Model
+                  <span
+                    class="infoDot"
+                    title="Optional. Add model/part number, revision, generation, or any extra details that help identify the item."
+                    >i</span
+                  ></span
+                >
+                <input id="itemModel" placeholder="Optional" autocomplete="off" />
+              </label>
+              <label class="field">
+                <span class="labelRow"
+                  >SKU
+                  <span
+                    class="infoDot"
+                    title="Optional. Add SKU/UPC/EAN/serial or internal inventory codes if you have them."
+                    >i</span
+                  ></span
+                >
+                <input id="sku" placeholder="Optional" autocomplete="off" />
+              </label>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
+

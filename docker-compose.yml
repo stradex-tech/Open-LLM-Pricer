@@ -1,0 +1,19 @@
+services:
+  ai-pricer:
+    build: .
+    network_mode: "host"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - PORT=3000
+      # Bind the web server. Default is 0.0.0.0 so other machines can access it.
+      # IMPORTANT: firewall this to trusted subnets.
+      - LISTEN_HOST=${LISTEN_HOST:-0.0.0.0}
+      # Optional (recommended): used to sign login sessions.
+      # If not set, the app will generate one and persist it under ./data/session_secret.txt.
+      - SESSION_SECRET=${SESSION_SECRET:-}
+      # Ollama must be reachable from inside the container.
+      # With host networking on Linux, localhost points to the host.
+      - OLLAMA_BASE_URL=http://localhost:11434
+      # Set to a vision-capable model you have pulled in Ollama.
+      - OLLAMA_MODEL=ministral-3:8b

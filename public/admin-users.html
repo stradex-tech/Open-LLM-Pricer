@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users · Admin · Open LLM Pricer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bgGrid" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brandText">
+            <div class="brandTitle">Open LLM Pricer</div>
+          </div>
+        </div>
+        <div class="badges">
+          <a class="ghostBtn" href="/admin">Pricing rules</a>
+          <a class="ghostBtn" href="/admin/users" aria-current="page">Users</a>
+          <a class="ghostBtn" href="/admin/audit">Audit logs</a>
+          <button id="logout" class="ghostBtn" type="button">Logout</button>
+        </div>
+      </header>
+
+      <section class="panel uPad18">
+        <h2 class="uM0 uMb12">Users</h2>
+
+        <div class="uGrid uGap14">
+          <div class="outputCard uM0">
+            <div class="outputTitle">Create user</div>
+
+            <div class="controlsRow cols2 alignEnd">
+              <label class="field">
+                <span>Username</span>
+                <input id="newUsername" autocomplete="off" />
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input id="newPassword" type="password" autocomplete="new-password" />
+              </label>
+              <label class="field">
+                <span>Role</span>
+                <select id="newRole" class="selectPlain">
+                  <option value="user">user</option>
+                  <option value="admin">admin</option>
+                </select>
+              </label>
+              <div class="uFlex uGap10 uAlignCenter uJustifyEnd">
+                <button id="createUser" class="primary btnCompact" type="button">Create user</button>
+              </div>
+            </div>
+
+            <div id="usersMsg" class="sourceMeta"></div>
+          </div>
+
+          <div class="outputCard uM0">
+            <div class="outputTitle">CSV import</div>
+            <div class="sourceMeta">Columns: <b>username,password,role,disabled</b> (header optional). For updates, password can be blank.</div>
+            <div class="uFlex uGap10 uAlignCenter uWrap uMt8">
+              <input id="csvFile" type="file" accept=".csv,text/csv" />
+              <button id="importCsv" class="ghostBtn" type="button">Import CSV</button>
+            </div>
+            <div id="csvMsg" class="sourceMeta"></div>
+          </div>
+
+          <div class="outputCard uM0">
+            <div class="outputTitle">All users</div>
+            <div id="usersTable" class="sources uMt10"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/admin-common.js"></script>
+    <script src="/admin-users.js"></script>
+  </body>
+</html>
+
